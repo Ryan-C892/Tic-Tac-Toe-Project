@@ -1,0 +1,149 @@
+@use 'sass:math';
+$speed: 5s;
+$increase-vertical: math.div($speed, 10);
+$scanlines: 1px;
+
+@keyframes move {
+	from {top: 0%; opacity: 0.8;}
+	to {top: 100%; opacity: 1;}
+}
+@keyframes angle {
+	0% {transform: rotateX(58deg);}
+	50% {transform: rotateX(60deg);}
+	100% {transform: rotateX(58deg);}
+}
+@keyframes bg {
+	0% {background-color: rgba(46, 46, 46, 0);}
+	49% {background-color: rgba(46, 46, 46, 0);}
+	50.5% {background-color: rgba(155, 155, 206, .4);}
+	51% {background-color: rgba(46, 46, 46, 0);}
+	51.5% {background-color: rgba(155, 155, 206, .3);}
+	57% {background-color: rgba(46, 46, 46, 0);}
+	100% {background-color: rgba(46, 46, 46, 0);}
+}
+html {
+	background: rgba(46, 46, 46, 1.00);
+}
+body {
+	background: rgba(46, 46, 46, 1.00);
+	animation: bg 10s infinite ease-out;
+	height: 100vh;
+	overflow: hidden;
+	position: relative;
+	margin: 0;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.2); //fallback
+    background: -webkit-repeating-linear-gradient(top, transparent 0px, transparent $scanlines, rgba(30,30,30,0.15) $scanlines, rgba(30,30,30,0.15) $scanlines*2);
+    background: -moz-repeating-linear-gradient(top, transparent 0px, transparent $scanlines, rgba(30,30,30,0.15) $scanlines, rgba(30,30,30,0.15) $scanlines*2);
+    display: block;
+    z-index: 10;
+}
+
+.title {
+	color: white;
+	font: small-caps lighter 54px/150% "Indelible", Helvetica, sans-serif;
+	letter-spacing: .2rem;
+	position: absolute;
+	top: 10%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: left;
+	line-height: 1.2em;
+	z-index: 200;
+}
+
+.synthwave-display {
+	animation: blur-n-hue $speed infinite ease-in-out;
+	content: "";
+	display: block;
+	background: rgba(224, 87, 90, 1);
+	background: linear-gradient(180deg,
+		rgba(200, 50, 100, 0.1) 0%,
+		rgba(200, 50, 100, 1) 6%,
+		rgba(220,220,220, 1) 8%,
+		rgba(224, 87, 90, 1) 12%,
+		rgba(224, 37, 90, 1) 100%
+	);
+	width: 150vw;
+	height: 80%;
+	left: -25%;
+	bottom: -10%;
+    position: absolute;
+}
+
+.grid {
+	perspective: 300px;
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.grid .inner-grid {
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width:100%;
+    height:100%;
+    transform: rotateX(60deg);
+    //animation: angle 5s infinite ease-in-out;
+}
+.grid-line {
+	display: block;
+	position: absolute;
+	width: 0px;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border: 1px solid white;
+	box-sizing: border-box;
+	height: 100%;
+	background: white;
+	box-shadow: 0px 0px 6px 2px rgba(255,225,225,0.8);
+}
+.hori, .vert {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100vw;
+	height: 100vh;
+}
+.hori .grid-line {
+    &:nth-child(1) {left: -40%;}
+    &:nth-child(2) {left: -20%;}
+    &:nth-child(3) {left: 0%;}
+    &:nth-child(4) {left: 20%;}
+    &:nth-child(5) {left: 40%;}
+    &:nth-child(6) {left: 60%;}
+    &:nth-child(7) {left: 80%;}
+    &:nth-child(8) {left: 100%;}
+    &:nth-child(9) {left: 120%;}
+    &:nth-child(10) {left: 140%;}
+}
+.vert .grid-line {
+    animation: move $speed infinite linear;
+    width: 200%;
+    left: -50%;
+    height: 0px;
+    &:nth-child(1) {animation: none; opacity: 0.7;}
+    &:nth-child(2) {animation-delay: $increase-vertical;}
+    &:nth-child(3) {animation-delay: $increase-vertical*2;}
+    &:nth-child(4) {animation-delay: $increase-vertical*3;}
+    &:nth-child(5) {animation-delay: $increase-vertical*4;}
+    &:nth-child(6) {animation-delay: $increase-vertical*5;}
+    &:nth-child(7) {animation-delay: $increase-vertical*6;}
+    &:nth-child(8) {animation-delay: $increase-vertical*7;}
+    &:nth-child(9) {animation-delay: $increase-vertical*8;}
+    &:nth-child(10) {animation-delay: $increase-vertical*9;}
+}

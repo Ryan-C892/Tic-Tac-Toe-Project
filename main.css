@@ -1,0 +1,165 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");
+/* Borderbox Fix */
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* General Settings */
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+html {
+  background: rgba(46, 46, 46, 1.00);
+}
+
+body {
+    background: linear-gradient(180deg,
+		rgba(101, 13, 137, 1) 18%,
+		rgba(146, 13, 137, 1) 24%,
+		rgba(212,0,120, 1) 28%,
+		rgba(253, 55, 119, 1) 30%,
+		rgba(200, 50, 100, 0.1) 100%
+	);
+    overflow: hidden;
+    margin: 0;
+    height: 100vh;
+}
+
+img, svg {
+    width: 20px;
+    height: 20px;
+    fill: #fff;
+    cursor: pointer;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: none;
+}
+
+h1 {
+    color: #fff;
+    font-size: 3rem;
+    text-align: center;
+    padding: 0 30px 50px 30px;
+    margin-bottom: 3rem;
+}
+
+h2 {
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    font-size: 20px;
+    font-weight: 400;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Container Settings */
+
+.main-container {
+    position: relative!important;
+    z-index: 100;
+    margin: 50px auto;
+    padding: 0;
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    perspective: 300px;
+}
+
+#reset {
+    color: rgba(220,220,220, 1);
+    outline: none;
+    border: 4px solid #2de2e6;
+    margin-top: 250px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 700;
+    background: none;
+    transition: all 0.2s ease-in-out;
+    transform: rotateX(32deg);
+    cursor: pointer;
+}
+
+#reset:hover {
+    color: #2de2e6;
+    background: #023788;
+}
+
+/* Puzzle */
+.main-container, .puzzle-container {
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    display: grid;
+    width: 450px;
+    height: 450px;
+    transform: rotateX(32deg);
+    grid-template-columns: auto auto auto;
+}
+
+.block {
+    display: flex;
+    width: 150px;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: 700;
+    border: 3px solid black;
+    transition: background 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.block:hover {
+    cursor: pointer;
+    background: #2de2e6;
+}
+
+/* Synthwave Settings */
+
