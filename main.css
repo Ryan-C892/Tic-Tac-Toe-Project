@@ -66,8 +66,11 @@ h1 {
     color: #fff;
     font-size: 3rem;
     text-align: center;
-    padding: 0 30px 50px 30px;
+    padding: 150px 30px 50px 30px;
     margin-bottom: 3rem;
+}
+.title {
+    font-size: 70px;
 }
 
 h2 {
