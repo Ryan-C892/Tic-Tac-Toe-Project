@@ -12,9 +12,39 @@
         <h1 class="title">Tic-Tac-Toe</h1>
         <!--Sun-->
         <div class="sun"></div>
+        <div class="shine one"></div>
+        <div class="shine two"></div>
+        <div class="shine three"></div>
+        <div class="shine four"></div>
+        <div class="shine five"></div>
         <!--Display-->
         <div class="synthwave-display">
-            <div class="main-container">
+            <!--Modal-->
+            <div id="modal">
+                <div id="text-body">
+                    <h1>
+                        <span>Select Game Mode</span>
+                        <button id="start"><h3>Start</h3></button>
+                    </h1>
+                    <div id="buttons">
+                        <button id="computerBtn">AI Bot</button>
+                        <button id="playerBtn">Two Player</button>
+                    </div>
+                </div>
+                
+                <div id="player-select">
+                    <form>
+                        <label for="name">Player 1</label>
+                        <input type="text" id="player1" placeholder="Enter Name" autocomplete="off" required>
+                        <br>
+                        <label for="name">Player 2</label>
+                        <input type="text" id="player2" placeholder="Enter Name" autocomplete="off" required>
+                        <br>
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+            <div class="main-container invisible">
                 <!--Puzzle Container-->
                 <div class="puzzle-container">
                     <div id="block_0" class="block"></div>
@@ -58,6 +88,7 @@
         			<div class="grid-line"></div>
         			<div class="grid-line"></div>
                 </div>
+                
         	</div>
         </div>
         <script src="main.js"></script>

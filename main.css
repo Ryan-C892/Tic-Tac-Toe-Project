@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Damion&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
 /* Borderbox Fix */
 html {
     box-sizing: border-box;
@@ -35,6 +37,7 @@ section {
 
 html {
   background: rgba(46, 46, 46, 1.00);
+  background: linear-gradient(#121212, #212938, #304468, #ab38bc, #121212);
 }
 
 body {
@@ -141,7 +144,7 @@ button {
     bottom:0;
     margin: 30px auto;
     display: grid;
-    width: 32vw;
+    width: 33vw;
     height: 0px;
     transform: rotateX(32deg);
     grid-template-columns: auto auto auto;
@@ -153,15 +156,15 @@ button {
     align-items: center;
     width: 180px;
     height: 140px;
-    margin: 5px 5px 0px 5px;
+    margin: 5px 14px 0px 6px;
     font-size: 3rem;
     font-weight: 700;
     background: linear-gradient(180deg,
-        rgba(224, 87, 90, 0.5) 0%,
-		rgba(224, 87, 90, 0.4) 6%,
-		rgba(224, 87, 90, 0.3) 8%,
-		rgba(255, 136, 0, 0.2) 12%,
-		rgba(255, 153, 0, 0.8) 100%
+        rgba(146, 13, 137, 0.5) 8%,
+        rgba(212, 0, 120, 0.5) 12%,
+        rgba(253, 55, 119, 0.5) 15%,
+		rgba(255, 136, 0, 0.5) 25%,
+		rgba(255, 136, 0, 1) 100%
     );
     border: 3px solid rgba(255, 0, 106, 0.8);
     outline: 0.8px solid #fff;
@@ -173,6 +176,66 @@ button {
     cursor: pointer;
     background: #2de2e6;
 }
+/* Modal Settings */
 
-/* Synthwave Settings */
+#modal {
+    position: relative;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40vw;
+    height: 0vh;
+    z-index: 1000;
+}
 
+#text-body h1 {
+    display: inline-block;
+    font-family: 'Work Sans', sans-serif;
+}
+
+#text-body h3 {
+    display: inline-block;
+    font-family: 'Damion', cursive;
+}
+
+#buttons {
+    position: absolute;
+    top: 250px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0px auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 20vw;
+    height: 100px;
+    z-index: 1000;
+    background: #2de2e6;
+}
+#computerBtn, #playerBtn {
+    width: 180px;
+    height: 30px;
+    color: #304468;
+}
+#player-select {
+    position: absolute;
+    top: 200px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20vw;
+    height: 100px;
+    z-index: 1000;
+    background: #2de2e6;
+}
+
+.invisible {
+    display: none;
+}
