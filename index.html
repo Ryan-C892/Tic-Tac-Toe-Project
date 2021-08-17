@@ -20,19 +20,21 @@
         <!--Display-->
         <div class="synthwave-display">
             <!--Modal-->
-            <div id="modal">
+            <div class="modal">
+
                 <div id="text-body">
                     <h1>
                         <span>Select Game Mode</span>
                         <button id="start"><h3>Start</h3></button>
                     </h1>
-                    <div id="buttons">
-                        <button id="computerBtn">AI Bot</button>
-                        <button id="playerBtn">Two Player</button>
-                    </div>
+                </div>
+
+                <div id="buttons" class="buttons invisible">
+                    <button id="computerBtn">AI Bot</button>
+                    <button id="playerBtn">Two Player</button>
                 </div>
                 
-                <div id="player-select">
+                <div id="player-select" class="player-select invisible">
                     <form>
                         <label for="name">Player 1</label>
                         <input type="text" id="player1" placeholder="Enter Name" autocomplete="off" required>
@@ -40,9 +42,10 @@
                         <label for="name">Player 2</label>
                         <input type="text" id="player2" placeholder="Enter Name" autocomplete="off" required>
                         <br>
-                        <input type="submit" value="Submit">
+                        <input id="submit" type="submit" value="Submit">
                     </form>
                 </div>
+
             </div>
             <div class="main-container invisible">
                 <!--Puzzle Container-->

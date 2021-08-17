@@ -178,7 +178,7 @@ button {
 }
 /* Modal Settings */
 
-#modal {
+.modal {
     position: relative;
     margin: 0px auto;
     display: flex;
@@ -200,27 +200,30 @@ button {
     font-family: 'Damion', cursive;
 }
 
-#buttons {
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     position: absolute;
-    top: 250px;
+    top: 100px;
     left: 0;
     right: 0;
     bottom: 0;
     margin: 0px auto;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
     width: 20vw;
     height: 100px;
     z-index: 1000;
     background: #2de2e6;
 }
+
 #computerBtn, #playerBtn {
     width: 180px;
     height: 30px;
-    color: #304468;
+    color: #121212;
+    z-index: 1000;
 }
-#player-select {
+
+.player-select {
     position: absolute;
     top: 200px;
     left: 0;
@@ -231,9 +234,44 @@ button {
     justify-content: center;
     align-items: center;
     width: 20vw;
-    height: 100px;
+    height: 200px;
     z-index: 1000;
+    color: #121212;
     background: #2de2e6;
+}
+
+.player-select > * {
+    z-index: 1000;
+}
+
+.player-input, label {
+    font-size: 16px;
+}
+
+input[type="text"] {
+    display: flex;
+    font-size: 16px;
+    font-family: 'Rubik', sans-serif;
+    padding: 5px;
+    margin: 5px auto;
+    width: 12vw;
+}
+
+input[type="submit"] {
+    font-size: 16px;
+    font-family: 'Rubik', sans-serif;
+    padding: 5px;
+    margin: 5px auto;
+    width: 12vw;
+    cursor: pointer;
+    color: #121212;
+    background: #fff;
+}
+
+input[type="submit"]:hover {
+    color: #2de2e6;
+    background: #304468;
+    transition: 0.2s ease-out;
 }
 
 .invisible {
