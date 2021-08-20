@@ -79,9 +79,8 @@ const gameBoardPlayer = (()=> {
     ];
     let winner = null;
     let turns = 0;
-    let gameBoard = [];
-    let winningCombo = [];
-
+    let gameBoard = new Array(9).fill(null);
+    let winnerArray = [];
     const playerTurns = (()=> {
         
         const block = document.querySelectorAll('.block');
@@ -89,7 +88,8 @@ const gameBoardPlayer = (()=> {
             block.addEventListener('click', event => {
                //Player One Turn
                if (player1.turn == true && gameBoardPlayer.winner == null && event.target.textContent == '') {
-                    gameBoard[event.target.id] = player1.symbol;
+                    const index = Number(event.target.id.substring(event.target.id.length-1));
+                    gameBoard[index] = player1.symbol;
                     block.textContent = player1.symbol;
                     block.style.color = '#2de2e6';
                     block.style.fontSize = '150px';
@@ -97,13 +97,14 @@ const gameBoardPlayer = (()=> {
                     player2.turn = true;
                     console.log(gameBoard);
                } else if (player2.turn == true && gameBoardPlayer.winner == null && event.target.textContent == '') {
-                   gameBoard[event.target.id] = player2.symbol;
-                   block.textContent = player2.symbol;
-                   block.style.color = '#2de2e6';
-                   block.style.fontSize = '150px';
-                   player1.turn = true;
-                   player2.turn = false;
-                   console.log(gameBoard);
+                    const index = Number(event.target.id.substring(event.target.id.length-1));
+                    gameBoard[index] = player2.symbol;
+                    block.textContent = player2.symbol;
+                    block.style.color = '#2de2e6';
+                    block.style.fontSize = '150px';
+                    player1.turn = true;
+                    player2.turn = false;
+                    console.log(gameBoard);
                } else {
                    return;
                };
@@ -112,8 +113,17 @@ const gameBoardPlayer = (()=> {
             return {block};
         })();
     });
-    winnerCheck = () => {
-        
+    const winnerCheck = () => {
+        const block = document.querySelectorAll('.block');
+        block.forEach( block => {
+            block.addEventListener('click', event => {
+                const index = Number(event.target.id.substring(event.target.id.length-1));
+                console.log(event.target.id);
+                console.log(gameBoard);
+                gameBoard[index] = player1.symbol;
+            });
+            return {block};
+        });
     };
     return {playerTurns};
 })();
