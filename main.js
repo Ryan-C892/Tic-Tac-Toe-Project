@@ -82,7 +82,7 @@ const gameBoardPlayer = (()=> {
     let winner = null;
     let turns = 0;
     let gameBoard = new Array(9).fill(null);
-    let winnerArray = new Array(9).fill(0).map(_x => Array(3).fill(null));
+    let winnerArray = new Array(2).fill(0).map(_x => Array(3).fill(null));
     const playerTurns = (()=> {
         
         const block = document.querySelectorAll('.block');
@@ -123,17 +123,28 @@ const gameBoardPlayer = (()=> {
         //- every value in this sub-array represents a cell that contains playerSymbol
         //- if we find one, we have a win.
         //- if not, the game continues.
-        const index = Number(event.target.id.substring(event.target.id.length-1));
+        let index = Number(event.target.id.substring(event.target.id.length-1));
+        let element;
+        if(player2.turn == false) {
+            element = player2.symbol;
+        } else {
+            element = player1.symbol;
+        }
+        for(const [index, element] of winnerArray.entries());
+        console.log(index, element);
         for (let i = 0; i < winnerArray.length; i++) {
-            if (winnerArray[0][0] == index && player1.turn == true) {
-                winnerArray[0][1] = index;
-            } else if(winnerArray[0][1] == index) {
-                winnerArray[0][2] = index;
+            // Player2 Turn
+            if (player1.turn == true) {
+                winnerArray[1][0] = index; 
             } else {
+            // Player1 Turn *First Move*
                 winnerArray[0][0] = index;
             }
+            // Player1 Turn *Second Move*
+            if(player2.turn == true && winnerArray[1][0] == index) {
+                winnerArray[0][1] = index;
+            }
         }
-        //console.log(event.target.id);
         console.log(winnerArray);
         console.log(winnerCombos);
     };
