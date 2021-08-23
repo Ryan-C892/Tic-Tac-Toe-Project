@@ -69,18 +69,20 @@ const gameBoardPlayer = (()=> {
     const player2 = playerCheck('player2', 'O', false); 
     const winnerCombos = [
         [0,1,2],
-        [0,3,6],
         [3,4,5],
         [6,7,8],
+        [0,3,6],
         [1,4,7],
-        [2,4,6],
         [2,5,8],
-        [0,4,8]
+        [2,4,6],
+        [0,4,8],
+        [6,4,2],
+        [8,4,0]
     ];
     let winner = null;
     let turns = 0;
     let gameBoard = new Array(9).fill(null);
-    let winnerArray = [];
+    let winnerArray = new Array(9).fill(0).map(_x => Array(3).fill(null));
     const playerTurns = (()=> {
         
         const block = document.querySelectorAll('.block');
@@ -96,6 +98,7 @@ const gameBoardPlayer = (()=> {
                     player1.turn = false;
                     player2.turn = true;
                     console.log(gameBoard);
+                    console.log(`player2.turn` + ` = ` + player2.turn);
                } else if (player2.turn == true && gameBoardPlayer.winner == null && event.target.textContent == '') {
                     const index = Number(event.target.id.substring(event.target.id.length-1));
                     gameBoard[index] = player2.symbol;
@@ -105,6 +108,7 @@ const gameBoardPlayer = (()=> {
                     player1.turn = true;
                     player2.turn = false;
                     console.log(gameBoard);
+                    console.log(`player1.turn` + ` = ` + player1.turn);
                } else {
                    return;
                };
@@ -114,16 +118,24 @@ const gameBoardPlayer = (()=> {
         })();
     });
     const winnerCheck = () => {
-        const block = document.querySelectorAll('.block');
-        block.forEach( block => {
-            block.addEventListener('click', event => {
-                const index = Number(event.target.id.substring(event.target.id.length-1));
-                console.log(event.target.id);
-                console.log(gameBoard);
-                gameBoard[index] = player1.symbol;
-            });
-            return {block};
-        });
+        //- given `winConditions` array, which is an array of arrays,
+        //- find a sub-array in `winConditions` that meets this condition:
+        //- every value in this sub-array represents a cell that contains playerSymbol
+        //- if we find one, we have a win.
+        //- if not, the game continues.
+        const index = Number(event.target.id.substring(event.target.id.length-1));
+        for (let i = 0; i < winnerArray.length; i++) {
+            if (winnerArray[0][0] == index && player1.turn == true) {
+                winnerArray[0][1] = index;
+            } else if(winnerArray[0][1] == index) {
+                winnerArray[0][2] = index;
+            } else {
+                winnerArray[0][0] = index;
+            }
+        }
+        //console.log(event.target.id);
+        console.log(winnerArray);
+        console.log(winnerCombos);
     };
     return {playerTurns};
 })();
