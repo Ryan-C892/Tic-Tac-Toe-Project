@@ -81,10 +81,11 @@ const gameBoardPlayer = (()=> {
     ];
     let winner = null;
     let turns = 0;
-    let gameBoard = new Array(9).fill(null);
-    let winnerArray = new Array(2).fill(0).map(_x => Array(3).fill(null));
+    let gameBoard = [];
+    //new Array(9).fill(null)
+    let winnerArray = [];
+    //new Array(2).fill(0).map(_x => Array(3).fill(null))
     const playerTurns = (()=> {
-        
         const block = document.querySelectorAll('.block');
         block.forEach( block => {
             block.addEventListener('click', event => {
@@ -114,39 +115,52 @@ const gameBoardPlayer = (()=> {
                };
                winnerCheck();
             });
-            return {block};
-        })();
-    });
+        });
+        return {block};
+    })();
     const winnerCheck = () => {
-        //- given `winConditions` array, which is an array of arrays,
-        //- find a sub-array in `winConditions` that meets this condition:
-        //- every value in this sub-array represents a cell that contains playerSymbol
-        //- if we find one, we have a win.
-        //- if not, the game continues.
-        let index = Number(event.target.id.substring(event.target.id.length-1));
-        let element;
-        if(player2.turn == false) {
-            element = player2.symbol;
+
+        let playerOneTurns;
+        let playerTwoTurns;
+        let player1Results = [];
+        let player2Results = [];
+            for (let i = 0; i < gameBoard.length; i++) {
+            const e = gameBoard[i];
+            if (e === player1.symbol) {
+                player1Results = player1Results.concat(i);
+            } else if (e === player2.symbol) {
+                player2Results = player2Results.concat(i);
+            }
+        }
+        playerOneTurns = player1Results;
+        playerTwoTurns = player2Results;
+        console.log(playerOneTurns);
+        console.log(playerTwoTurns);
+
+        for(let [index, combo] of winnerCombos.entries()) {
+            if (combo.every(elem => playerOneTurns.indexOf(elem) > -1)) {
+                gameBoardPlayer.winner = 'p1';
+                gameBoardPlayer.winnerArray = combo;
+            } else if (combo.every(elem => playerTwoTurns.indexOf(elem) > -1)) {
+                gameBoardPlayer.winner = 'p2';
+                gameBoardPlayer.winnerArray = combo;
+            } else if (gameBoardPlayer.winner == null && gameBoardPlayer.winner == undefined && turns == 9) {
+                gameBoardPlayer.winner = 'tie';
+                gameBoardPlayer.winnerArray = combo;
+            };
+        };
+        // Display the Winner
+        console.log(turns, winner, winnerArray)
+        if(gameBoardPlayer.winner === 'p1') {
+            alert('Player1 Wins!');
+        } else if (gameBoard.winner === 'p2') {
+            alert('Player2 Wins!');
+        } else if (gameBoard.winner == 'tie') {
+            alert('Tie!');
         } else {
-            element = player1.symbol;
+            return;
         }
-        for(const [index, element] of winnerArray.entries());
-        console.log(index, element);
-        for (let i = 0; i < winnerArray.length; i++) {
-            // Player2 Turn
-            if (player1.turn == true) {
-                winnerArray[1][0] = index; 
-            } else {
-            // Player1 Turn *First Move*
-                winnerArray[0][0] = index;
-            }
-            // Player1 Turn *Second Move*
-            if(player2.turn == true && winnerArray[1][0] == index) {
-                winnerArray[0][1] = index;
-            }
-        }
-        console.log(winnerArray);
-        console.log(winnerCombos);
+        return winnerArray;
     };
     return {playerTurns};
 })();
