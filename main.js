@@ -1,18 +1,15 @@
 const gameStart = (()=> {
     let puzzleGrid = document.querySelector(".main-container");
-    let puzzleInner = document.querySelector(".puzzle-container");
     let modal = document.querySelector(".modal");
     let startBtn = document.querySelector("#start");
     let buttons = document.querySelector(".buttons");
     let playerSelect = document.querySelector(".player-select");
-    console.log(puzzleInner.childNodes);
     
     const playerName = (name) => {
         return {name};
     };
     let player1;
     let player2;
-    let resetBtn = document.querySelector("#reset");
     const startGameAI = ()=> {
         startBtn.addEventListener("click", ()=> {
             buttons.classList.remove("invisible");
@@ -38,29 +35,14 @@ const gameStart = (()=> {
             console.log("Start!");
             modal.classList.add("invisible");
             puzzleGrid.classList.remove("invisible");
+            // Calls Two Player Mode
+            gameBoardPlayer.playerTurns();
         });
     }
-    const resetGame = ()=> {
-        resetBtn.addEventListener("click", ()=> {
-            console.log("reset");
-            modal.classList.remove("invisible");
-            puzzleGrid.classList.add("invisible");
-            document.getElementById('block_0').textContent = "";
-            document.getElementById('block_1').textContent = "";
-            document.getElementById('block_2').textContent = "";
-            document.getElementById('block_3').textContent = "";
-            document.getElementById('block_4').textContent = "";
-            document.getElementById('block_5').textContent = "";
-            document.getElementById('block_6').textContent = "";
-            document.getElementById('block_7').textContent = "";
-            document.getElementById('block_8').textContent = "";
-        });
-    }
-    return {startGameAI, startGamePlayer, resetGame};
+    return {startGameAI, startGamePlayer};
 })(); 
 const startYourEngines = [gameStart.startGameAI(), gameStart.startGamePlayer()];
-const gameRestart = gameStart.resetGame();
-
+// Start Two Player Mode
 const gameBoardPlayer = (()=> {   
     const playerCheck = (name, symbol, turn) => {
         return {name, symbol, turn};
@@ -82,9 +64,9 @@ const gameBoardPlayer = (()=> {
     let winner = null;
     let turns = 0;
     let gameBoard = [];
-    //new Array(9).fill(null)
+    // Stores winner input
     let winnerArray = [];
-    //new Array(2).fill(0).map(_x => Array(3).fill(null))
+    // Player1 and Player2 turns
     const playerTurns = (()=> {
         const block = document.querySelectorAll('.block');
         block.forEach( block => {
@@ -119,9 +101,7 @@ const gameBoardPlayer = (()=> {
         return {block};
     })();
     const winnerCheck = () => {
-
-        let playerOneTurns;
-        let playerTwoTurns;
+        // Create arrays for both player that will be compared to winnerCombos
         let player1Results = [];
         let player2Results = [];
             for (let i = 0; i < gameBoard.length; i++) {
@@ -132,37 +112,74 @@ const gameBoardPlayer = (()=> {
                 player2Results = player2Results.concat(i);
             }
         }
-        playerOneTurns = player1Results;
-        playerTwoTurns = player2Results;
-        console.log(playerOneTurns);
-        console.log(playerTwoTurns);
-
+        console.log(player1Results);
+        console.log(player2Results);
+        // Iterate each index
+        // Test if every number in player1Results and player2Results 
+        // has the first index of their array is greater than -1
+        // If true winnerArray stores the truthy value of combo
+        // combo takes winnerCombos and makes a seperate array out of each subarray
         for(let [index, combo] of winnerCombos.entries()) {
-            if (combo.every(elem => playerOneTurns.indexOf(elem) > -1)) {
-                gameBoardPlayer.winner = 'p1';
-                gameBoardPlayer.winnerArray = combo;
-            } else if (combo.every(elem => playerTwoTurns.indexOf(elem) > -1)) {
-                gameBoardPlayer.winner = 'p2';
-                gameBoardPlayer.winnerArray = combo;
-            } else if (gameBoardPlayer.winner == null && gameBoardPlayer.winner == undefined && turns == 9) {
-                gameBoardPlayer.winner = 'tie';
-                gameBoardPlayer.winnerArray = combo;
+            if (combo.every((num)=> player1Results.indexOf(num) > -1)) {
+                winner = '1';
+                winnerArray = combo;
+                console.log(combo);
+            } else if (combo.every(num => player2Results.indexOf(num) > -1)) {
+                winner = '2';
+                winnerArray = combo;
+                console.log(combo);
+            } else if (winner == null && winner == undefined && turns == 9) {
+                winner = 'tie';
+                winnerArray = combo;
+                console.log(combo);
             };
         };
         // Display the Winner
-        console.log(turns, winner, winnerArray)
-        if(gameBoardPlayer.winner === 'p1') {
+        if(winner === '1') {
+            console.log(winner);
             alert('Player1 Wins!');
-        } else if (gameBoard.winner === 'p2') {
+        } else if (winner === '2') {
+            console.log(winner);
             alert('Player2 Wins!');
-        } else if (gameBoard.winner == 'tie') {
+        } else if (winner == 'tie') {
+            console.log(winner);
             alert('Tie!');
         } else {
-            return;
+            return winnerArray;
         }
-        return winnerArray;
     };
-    return {playerTurns};
+    // Reset The Game
+    resetGameBoard = ()=> {
+        winner = null;
+        winnerArray = [];
+        player1.turn = true;
+        player2.turn = false;
+        turns = 0;
+        gameBoard.splice(0, gameBoard.length);
+        console.log(`resetGameBoard Fired`);
+        console.log(gameBoard, winner, player1.turn, player2.turn, turns);
+    };
+    console.log(gameBoard, winner, player1.turn, player2.turn, turns);   
+    return {playerTurns, winnerCheck, resetGameBoard};
 })();
+// Handles Events unrelated to starting the game
+const eventHandler = (()=> {
+    let puzzleGrid = document.querySelector(".main-container");
+    let modal = document.querySelector(".modal");
+    let blocks = document.querySelectorAll('.block');
+    let resetBtn = document.querySelector("#reset");
+    console.log(blocks);
+    winnerDisplay = ()=> {
 
-const gamePlayerStart = gameBoardPlayer.playerTurns();
+    }
+    gameRestart = ()=> {
+        console.log(`reset`);
+        gameBoardPlayer.resetGameBoard();
+        modal.classList.remove("invisible");
+        puzzleGrid.classList.add("invisible");
+        blocks.forEach( (blocks) => {
+            blocks.textContent = "";
+        });
+    };
+    resetBtn.addEventListener('click', gameRestart);
+})();
