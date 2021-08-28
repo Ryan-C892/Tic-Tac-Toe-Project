@@ -82,6 +82,10 @@ const gameBoardPlayer = (()=> {
                     player2.turn = true;
                     console.log(gameBoard);
                     console.log(`player2.turn` + ` = ` + player2.turn);
+                    let myMediaQuery = window.matchMedia('(max-width: 768px)');
+                    if (myMediaQuery.matches) {
+                        block.style.fontSize = '100px';
+                    }
                } else if (player2.turn == true && gameBoardPlayer.winner == null && event.target.textContent == '') {
                     const index = Number(event.target.id.substring(event.target.id.length-1));
                     gameBoard[index] = player2.symbol;
@@ -92,6 +96,10 @@ const gameBoardPlayer = (()=> {
                     player2.turn = false;
                     console.log(gameBoard);
                     console.log(`player1.turn` + ` = ` + player1.turn);
+                    let myMediaQuery = window.matchMedia('(max-width: 768px)');
+                    if (myMediaQuery.matches) {
+                        block.style.fontSize = '100px';
+                    }
                } else {
                    return;
                };
