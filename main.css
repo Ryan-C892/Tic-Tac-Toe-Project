@@ -102,7 +102,6 @@ button {
 }
 
 /* Container Settings */
-
 .main-container {
     position: relative!important;
     z-index: 100;
@@ -175,10 +174,10 @@ button {
 
 .block:hover {
     cursor: pointer;
-    background: #2de2e6;
+    border: 3px solid #2de2e6;
 }
-/* Modal Settings */
 
+/* Modal Settings */
 .modal {
     position: relative;
     margin: 0px auto;
@@ -279,9 +278,11 @@ input[type="submit"]:hover {
     display: none;
 }
 
-/* Media Queries */
+/* ------Media Queries------ */
 
-@media only screen and (max-width: 1024px) {
+@media only screen 
+and (min-device-width: 768px)
+and (max-device-width: 1024px) {
     html > * {
         width: 1024px;
         overflow: hidden;
@@ -379,101 +380,148 @@ input[type="submit"]:hover {
     }
 }
 
-@media only screen and (max-width: 768px) {
-    html > * {
-        width: 768px;
-        overflow: hidden;
-    }
+/* ------IPad Settings------*/
+@media not all and (min-resolution:.001dpcm) { 
+    @media screen {
+
+        html > * {
+            min-width: 768px;
+            max-width: 1114px;
+            overflow: hidden;
+        }
+        
+        .grid {
+            min-width: 768px;
+            max-width: 1114px;
+        }
+        .synthwave-display {
+            position: absolute;
+            width: 170vw;
+            height: 80%;
+            left: -30%;
+            bottom: -10%;
+        }
+        
+        .hori, .vert {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 90vw;
+            height: 100vh;
+        }
+
+        .hori, .grid-line {
+            position: absolute;
+            top: 0;
+            left: 55px;
+            right: 0;
+            bottom: 0;
+        }
+        
+        .title {
+            font-size: 54px;
+            font-family: "Electrolize", sans-serif;
+        }
     
-    .grid {
-        width: 768px;
-    }
+        #text-body h1 {
+            font-size: 3em;
+            margin-right: 100px;
+        }
     
-    .title {
-        font-size: 54px;
-    }
-
-    #text-body h1 {
-        font-size: 3em;
-    }
-
-    #text-body h3 {
-        position: absolute;
-        top: 72%;
-        right: 10%;
-        text-align: right;
-        font-size: 2em;
-        letter-spacing: -1px;
-        transform: skewY(-10deg);
-    }
-
-    /* Modal */
-    .modal {
-        width: 100vw;
-    }
-
-    .buttons {
-        width: 30vw;
-    }
-
-    #computerBtn, #playerBtn {
-        width: 180px;
-        height: 30px;
-        margin-left: 0px;
-        margin-right: 18px;
-        text-align: center;
-    }
+        #text-body h3 {
+            position: absolute;
+            top: 72%;
+            right: 10%;
+            text-align: right;
+            font-size: 2em;
+            letter-spacing: -1px;
+            transform: skewY(-10deg);
+        }
     
-    .player-select {
-        width: 30vw;
-        height: 200px;
-    }
+        /* ------IPad Modal------ */
+        .modal {
+            width: 92.9vw;
+        }
     
-    .player-input, label {
-        font-size: 16px;
-    }
+        .buttons {
+            position: absolute;
+            right: 10%;
+            width: 30vw;
+        }
     
-    input[type="text"] {
-        width: 22vw;
-    }
+        #computerBtn, #playerBtn {
+            width: 180px;
+            height: 30px;
+            margin-left: 0px;
+            margin-right: 12px;
+            text-align: center;
+        }
+        
+        .player-select {
+            position: absolute;
+            right: 10%;
+            width: 30vw;
+            height: 200px;
+        }
+        
+        .player-input, label {
+            font-size: 16px;
+        }
+        
+        input[type="text"] {
+            width: 22vw;
+        }
+        
+        input[type="submit"] {
+            width: 22vw;
+        }
     
-    input[type="submit"] {
-        width: 22vw;
-    }
-
-    /* Puzzle */
-    .main-container, .puzzle-container {
-        width: 31.5vw;
-    }
-
-    .block {
-        width: 65px;
-        height: 140px;
-        margin: 5px 0px 0px 8px;
-        font-size: 100px;
-        font-weight: 700;
-    }
-
-    #reset {
-        color: rgba(220,220,220, 1);
-        outline: none;
-        border: 4px solid #2de2e6;
-        margin-top: 250px;
-        padding: 10px 20px;
-        font-size: 1rem;
-        font-weight: 700;
-        background: none;
-        transition: all 0.2s ease-in-out;
-        transform: rotateX(32deg);
-        cursor: pointer;
-    }
+        /* ------IPad Puzzle------ */
+        .main-container, .puzzle-container {
+            position: absolute;
+            top:0;
+            left:-55px;
+            right:0;
+            bottom:0;
+            margin: 35px auto;
+            display: grid;
+            width: 33vw;
+            height: 0px;
+            transform: rotateX(33.5deg);
+            grid-template-columns: auto auto auto;
+        }
     
-    #reset:hover {
-        color: #2de2e6;
-        background: #023788;
-    }
-
-    .invisible {
-        display: none;
+        .block {
+            width: 120px;
+            height: 120px;
+            margin: 5px 31px 0px 0px;
+            font-size: 100px;
+            font-weight: 700;
+        }
+    
+        #reset {
+            color: rgba(220,220,220, 1);
+            outline: none;
+            border: 4px solid #2de2e6;
+            margin-top: 250px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            background: none;
+            transition: all 0.2s ease-in-out;
+            transform: rotateX(32deg);
+            cursor: pointer;
+        }
+        
+        #reset:hover {
+            color: #2de2e6;
+            background: #023788;
+        }
+    
+        .invisible {
+            display: none;
+        }
     }
 }
