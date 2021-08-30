@@ -35,12 +35,12 @@
                 </div>
                 
                 <div id="player-select" class="player-select invisible">
-                    <form>
+                    <form id="player-form">
                         <label for="name">Player 1</label>
-                        <input type="text" id="player1" placeholder="Enter Name" autocomplete="off" required>
+                        <input type="text" id="player1" placeholder="Enter Name" autocomplete="off">
                         <br>
                         <label for="name">Player 2</label>
-                        <input type="text" id="player2" placeholder="Enter Name" autocomplete="off" required>
+                        <input type="text" id="player2" placeholder="Enter Name" autocomplete="off">
                         <br>
                         <input id="submit" type="submit" value="Submit">
                     </form>
@@ -60,7 +60,10 @@
                     <div id="block_7" class="block" data-index="7"></div>
                     <div id="block_8" class="block" data-index="8"></div>
                 </div>
-                <button id="reset">Reset Board</button>
+                <button id="reset" class="cyber-btn">
+                    Reset Board
+                <span class="glitch">Reset Board</span>
+                </button>
             </div>
         </div>
         <div class="grid">

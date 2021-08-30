@@ -4,7 +4,7 @@ const gameStart = (()=> {
     let startBtn = document.querySelector("#start");
     let buttons = document.querySelector(".buttons");
     let playerSelect = document.querySelector(".player-select");
-    
+
     const playerName = (name) => {
         return {name};
     };
@@ -21,24 +21,46 @@ const gameStart = (()=> {
         });        
     }
     const startGamePlayer = ()=> {
-        const form = document.getElementById("player-select");
+        //For Whatever reason the game cannot run without this
+        const form = document.getElementById("player-form");
         function handleForm(event) { event.preventDefault(); } 
         form.addEventListener('submit', handleForm);
+
         let playerBtn = document.querySelector("#playerBtn");
-        let submit = document.querySelector("#submit");
         playerBtn.addEventListener("click", ()=> {
             playerSelect.classList.remove("invisible");
             player1 = playerName(document.getElementById('player1').value);
             player2 = playerName(document.getElementById('player2').value);
         });
-        submit.addEventListener("click",()=> {
-            console.log("Start!");
-            modal.classList.add("invisible");
-            puzzleGrid.classList.remove("invisible");
-            // Calls Two Player Mode
-            gameBoardPlayer.playerTurns();
+        form.addEventListener("submit",()=> {
+            let playerOneInput = document.getElementById("player1").value;
+            let playerTwoInput = document.getElementById("player2").value;
+            console.log(playerTwoInput);
+            console.log(playerOneInput);
+            
+            if(playerOneInput == "" || playerTwoInput == "") {
+                alert("Please fill in all fields");
+            } else {
+                console.log("Start!");
+                modal.classList.add("invisible");
+                puzzleGrid.classList.remove("invisible");
+            };
         });
     }
+    //const validate = ()=> {
+    //    let playerOneInput = document.getElementById("player1").value;
+    //    let playerTwoInput = document.getElementById("player2").value;
+    //    form.addEventListener('submit', ()=> {
+    //        console.log(playerOneInput);
+    //        console.log(playerTwoInput);
+    //        // Validate
+    //        if(playerOneInput == "" || playerTwoInput == "") {
+    //            alert("Please fill in all fields");
+    //        } else {
+    //            gameBoardPlayer.playerTurns();
+    //        };
+    //    });
+    //};
     return {startGameAI, startGamePlayer};
 })(); 
 const startYourEngines = [gameStart.startGameAI(), gameStart.startGamePlayer()];
