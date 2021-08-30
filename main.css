@@ -386,17 +386,18 @@ and (max-device-width: 1024px) {
 
         html > * {
             min-width: 768px;
-            max-width: 1114px;
+            max-width: 1365px;
             overflow: hidden;
         }
         
-        .grid {
+        .grid, .inner-grid {
             min-width: 768px;
-            max-width: 1114px;
+            max-width: 1365px;
         }
+        
         .synthwave-display {
             position: absolute;
-            width: 170vw;
+            width: 160vw;
             height: 80%;
             left: -30%;
             bottom: -10%;
@@ -408,16 +409,26 @@ and (max-device-width: 1024px) {
             left: 0;
             right: 0;
             bottom: 0;
-            width: 90vw;
+            width: 100vw;
             height: 100vh;
         }
 
-        .hori, .grid-line {
+        .hori .grid-line {
             position: absolute;
             top: 0;
-            left: 55px;
+            left: 0;
             right: 0;
             bottom: 0;
+        }
+
+        .vert .grid-line {
+            position: absolute;
+            top: 0;
+            left: -700px;
+            right: 0;
+            bottom: 0;
+            width: 200%;
+            max-width: 3000px;
         }
         
         .title {
@@ -442,12 +453,12 @@ and (max-device-width: 1024px) {
     
         /* ------IPad Modal------ */
         .modal {
-            width: 92.9vw;
+            width: 168vw;
         }
     
         .buttons {
             position: absolute;
-            right: 10%;
+            right: 5%;
             width: 30vw;
         }
     
@@ -461,7 +472,7 @@ and (max-device-width: 1024px) {
         
         .player-select {
             position: absolute;
-            right: 10%;
+            right: 5%;
             width: 30vw;
             height: 200px;
         }
@@ -479,24 +490,24 @@ and (max-device-width: 1024px) {
         }
     
         /* ------IPad Puzzle------ */
-        .main-container, .puzzle-container {
+        .main-container .puzzle-container {
             position: absolute;
             top:0;
-            left:-55px;
+            left:0;
             right:0;
             bottom:0;
-            margin: 35px auto;
+            margin: 30px auto;
             display: grid;
-            width: 33vw;
+            width: 30vw;
             height: 0px;
-            transform: rotateX(33.5deg);
+            transform: rotateX(32deg);
             grid-template-columns: auto auto auto;
         }
     
         .block {
             width: 120px;
-            height: 120px;
-            margin: 5px 31px 0px 0px;
+            height: 140px;
+            margin: 5px 0px 0px 9px;
             font-size: 100px;
             font-weight: 700;
         }
