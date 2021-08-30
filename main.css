@@ -385,14 +385,14 @@ and (max-device-width: 1024px) {
     @media screen {
 
         html > * {
-            min-width: 768px;
-            max-width: 1365px;
+            min-width: 1080px;
+            max-width: 1920px;
             overflow: hidden;
         }
         
         .grid, .inner-grid {
-            min-width: 768px;
-            max-width: 1365px;
+            min-width: 1080px;
+            max-width: 1920px;
         }
         
         .synthwave-display {
@@ -496,9 +496,9 @@ and (max-device-width: 1024px) {
             left:0;
             right:0;
             bottom:0;
-            margin: 30px auto;
+            margin: 40px auto;
             display: grid;
-            width: 30vw;
+            width: 24vw;
             height: 0px;
             transform: rotateX(32deg);
             grid-template-columns: auto auto auto;
@@ -507,7 +507,7 @@ and (max-device-width: 1024px) {
         .block {
             width: 120px;
             height: 140px;
-            margin: 5px 0px 0px 9px;
+            margin: 5px 0px 0px 17px;
             font-size: 100px;
             font-weight: 700;
         }
