@@ -20,6 +20,16 @@ const gameStart = (()=> {
             puzzleGrid.classList.remove("invisible");
         });        
     }
+    const showAlert = (message, className)=> {
+        const div = document.createElement('div');
+        div.className = `${className}`;
+        div.appendChild(document.createTextNode(message));
+        const form = document.getElementById("player-form");
+        const label = document.getElementById("form-label");
+        form.insertBefore(div, label);
+        // Vanish
+        setTimeout(()=> document.querySelector('.validate').remove(), 5000);
+    }
     const startGamePlayer = ()=> {
         //For Whatever reason the game cannot run without this
         const form = document.getElementById("player-form");
@@ -39,28 +49,14 @@ const gameStart = (()=> {
             console.log(playerOneInput);
             
             if(playerOneInput == "" || playerTwoInput == "") {
-                alert("Please fill in all fields");
+                showAlert('Please fill in all fields', 'validate');
             } else {
                 console.log("Start!");
                 modal.classList.add("invisible");
                 puzzleGrid.classList.remove("invisible");
             };
         });
-    }
-    //const validate = ()=> {
-    //    let playerOneInput = document.getElementById("player1").value;
-    //    let playerTwoInput = document.getElementById("player2").value;
-    //    form.addEventListener('submit', ()=> {
-    //        console.log(playerOneInput);
-    //        console.log(playerTwoInput);
-    //        // Validate
-    //        if(playerOneInput == "" || playerTwoInput == "") {
-    //            alert("Please fill in all fields");
-    //        } else {
-    //            gameBoardPlayer.playerTurns();
-    //        };
-    //    });
-    //};
+    };
     return {startGameAI, startGamePlayer};
 })(); 
 const startYourEngines = [gameStart.startGameAI(), gameStart.startGamePlayer()];
