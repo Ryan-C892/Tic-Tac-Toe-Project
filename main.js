@@ -10,16 +10,17 @@ const gameStart = (()=> {
     };
     let player1;
     let player2;
-    const startGameAI = ()=> {
+    // For Whatever reason the game cannot run without this
+    const form = document.getElementById("player-form");
+    function handleForm(event) { event.preventDefault(); } 
+    form.addEventListener('submit', handleForm);
+    // Display Buttons
+    const displayButtons = ()=> {
         startBtn.addEventListener("click", ()=> {
             buttons.classList.remove("invisible");
-        });
-        let computerBtn = document.querySelector("#computerBtn");
-        computerBtn.addEventListener("click", ()=> {
-            modal.classList.add("invisible");
-            puzzleGrid.classList.remove("invisible");
-        });        
-    }
+        });      
+    };
+    // Validation Alert
     const showAlert = (message, className)=> {
         const div = document.createElement('div');
         div.className = `${className}`;
@@ -30,24 +31,21 @@ const gameStart = (()=> {
         // Vanish
         setTimeout(()=> document.querySelector('.validate').remove(), 5000);
     }
+    // Two Player Mode Start
     const startGamePlayer = ()=> {
-        //For Whatever reason the game cannot run without this
-        const form = document.getElementById("player-form");
-        function handleForm(event) { event.preventDefault(); } 
-        form.addEventListener('submit', handleForm);
-
         let playerBtn = document.querySelector("#playerBtn");
         playerBtn.addEventListener("click", ()=> {
             playerSelect.classList.remove("invisible");
             player1 = playerName(document.getElementById('player1').value);
             player2 = playerName(document.getElementById('player2').value);
         });
+        // Custom Form Validation
         form.addEventListener("submit",()=> {
             let playerOneInput = document.getElementById("player1").value;
             let playerTwoInput = document.getElementById("player2").value;
             console.log(playerTwoInput);
             console.log(playerOneInput);
-            
+            // Validation Comparison
             if(playerOneInput == "" || playerTwoInput == "") {
                 showAlert('Please fill in all fields', 'validate');
             } else {
@@ -57,16 +55,24 @@ const gameStart = (()=> {
             };
         });
     };
-    return {startGameAI, startGamePlayer};
-})(); 
-const startYourEngines = [gameStart.startGameAI(), gameStart.startGamePlayer()];
-// Start Two Player Mode
-const gameBoardPlayer = (()=> {   
-    const playerCheck = (name, symbol, turn) => {
-        return {name, symbol, turn};
+    // Computer versus Player Start
+    const startGameComputer = ()=> {
+        let computerBtn = document.querySelector("#computerBtn");
+        computerBtn.addEventListener("click", ()=> {
+            modal.classList.add("invisible");
+            puzzleGrid.classList.remove("invisible");
+        });  
     };
-    const player1 = playerCheck('player1', 'X', true);
-    const player2 = playerCheck('player2', 'O', false); 
+    return {displayButtons, startGamePlayer, startGameComputer};
+})(); 
+const startYourEngines = [gameStart.displayButtons(), gameStart.startGamePlayer(), gameStart.startGameComputer()];
+// Start Two Player Mode
+const gameBoardPlayer = (()=> { 
+    const playerCheck = (name, symbol, ai, turn) => {
+        return {name, symbol, ai, turn};
+    };
+    const player1 = playerCheck('player1', 'X', false, true);
+    const player2 = playerCheck('player2', 'O', false, false); 
     const winnerCombos = [
         [0,1,2],
         [3,4,5],
@@ -104,7 +110,7 @@ const gameBoardPlayer = (()=> {
                     if (myMediaQuery.matches) {
                         block.style.fontSize = '100px';
                     }
-               } else if (player2.turn == true && gameBoardPlayer.winner == null && event.target.textContent == '') {
+               } else if (player2.turn == true && gameBoardPlayer.winner == null && event.target.textContent == '' && player2.ai == false) {
                     const index = Number(event.target.id.substring(event.target.id.length-1));
                     gameBoard[index] = player2.symbol;
                     block.textContent = player2.symbol;
@@ -118,14 +124,19 @@ const gameBoardPlayer = (()=> {
                     if (myMediaQuery.matches) {
                         block.style.fontSize = '100px';
                     }
-               } else {
-                   return;
+               } else if (player2.ai == true && player2.turn == true){
+                   computerMove();
                };
                winnerCheck();
             });
         });
         return {block};
     })();
+    // Computer Algorithum
+    computerMove =()=> {
+
+    };
+    // Check for a Winner
     const winnerCheck = () => {
         // Create arrays for both player that will be compared to winnerCombos
         let player1Results = [];
@@ -181,12 +192,11 @@ const gameBoardPlayer = (()=> {
         player1.turn = true;
         player2.turn = false;
         turns = 0;
-        gameBoard.splice(0, gameBoard.length);
-        console.log(`resetGameBoard Fired`);
+        gameBoard = [];
         console.log(gameBoard, winner, player1.turn, player2.turn, turns);
     };
     console.log(gameBoard, winner, player1.turn, player2.turn, turns);   
-    return {playerTurns, winnerCheck, resetGameBoard};
+    return {playerTurns, player2, winnerCheck, resetGameBoard};
 })();
 // Handles Events unrelated to starting the game
 const eventHandler = (()=> {
@@ -198,8 +208,16 @@ const eventHandler = (()=> {
     winnerDisplay = ()=> {
 
     }
+    // Activate Computer
+    gamePlayComputer = ()=> {
+        gameBoardPlayer.player2.ai = true;
+        console.log(`Computer Activated = ${gameBoardPlayer.player2.ai}`);
+    }
+    let computerBtn = document.querySelector("#computerBtn");
+    computerBtn.addEventListener('click', gamePlayComputer);
+    // Game Restart
     gameRestart = ()=> {
-        console.log(`reset`);
+        console.log('reset');
         gameBoardPlayer.resetGameBoard();
         modal.classList.remove("invisible");
         puzzleGrid.classList.add("invisible");
