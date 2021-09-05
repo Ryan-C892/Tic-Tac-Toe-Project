@@ -129,13 +129,30 @@ const gameBoardPlayer = (()=> {
                };
                winnerCheck();
             });
+            // Computer Algorithum
+            computerMove =()=> {
+            
+                minMax = (min, max)=> {
+                    return Math.floor(Math.random() * (max -min)) + min;
+                };
+            
+                let comIndex = minMax(0, 9);
+
+                if(player2.ai == true && player2.turn == true) {
+                    gameBoard[comIndex] = player2.symbol;
+                    block.textContent = player2.symbol;
+                    block.style.color = '#2de2e6';
+                    block.style.fontSize = '150px';
+                    player1.turn = true;
+                    player2.turn = false;
+                } else {
+                    return computerMove();
+                };
+                console.log(block, comIndex);
+            };
         });
         return {block};
     })();
-    // Computer Algorithum
-    computerMove =()=> {
-
-    };
     // Check for a Winner
     const winnerCheck = () => {
         // Create arrays for both player that will be compared to winnerCombos
