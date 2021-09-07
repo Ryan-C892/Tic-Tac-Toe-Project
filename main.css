@@ -282,6 +282,59 @@ button {
     display: block;
 }
 
+/* Winner Modal */
+#winner-modal {
+    font-family: 'Cyber', sans-serif;
+    padding: 0px 10px;
+    margin-top: -1090px;
+    margin-left: -300px;
+    color: var(--color);
+    background: transparent;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: var(--font-size);
+    font-weight: 700;
+    outline: transparent;
+    letter-spacing: 2px;
+    position: relative;
+    border: none;
+    min-width: 300px;
+    height: 75px;
+    line-height: 75px;
+    transition: background 0.2s;
+    transform: rotateX(0deg);
+    cursor: pointer;
+    perspective: 300px;
+}
+
+#winner-modal:hover {
+    --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 0.8%));
+}
+
+#winner-modal:after,
+#winner-modal:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  clip-path: var(--clip);
+  z-index: -1;
+}
+
+#winner-modal:before {
+    background: var(--primary);
+}
+
+#winner-modal:after {
+    background: repeating-linear-gradient(var(--shadow-primary), transparent 2px, var(--shadow-primary) 3px, var(--shadow-primary) 3px);
+}
+
+#winner-modal:hover .glitch {
+    display: block;
+}
+
 /* Puzzle */
 .main-container, .puzzle-container {
     position: absolute;
@@ -355,9 +408,12 @@ button {
     cursor: pointer;
 }
 
-#text-body h1 {
+#text-body h1 span {
     display: inline-block;
-    font-family: 'Work Sans', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.5);
 }
 
 #text-body h3 {

@@ -68,11 +68,11 @@ const gameStart = (()=> {
 const startYourEngines = [gameStart.displayButtons(), gameStart.startGamePlayer()];
 // Start Two Player Mode
 const gameBoardPlayer = (()=> { 
-    const playerCheck = (name, symbol, ai, turn) => {
-        return {name, symbol, ai, turn};
+    const playerCheck = (name, symbol, turn) => {
+        return {name, symbol, turn};
     };
-    const player1 = playerCheck('player1', 'X', false, true);
-    const player2 = playerCheck('player2', 'O', false, false); 
+    const player1 = playerCheck('player1', 'X', true);
+    const player2 = playerCheck('player2', 'O', false); 
     const winnerCombos = [
         [0,1,2],
         [3,4,5],
@@ -105,12 +105,13 @@ const gameBoardPlayer = (()=> {
                     player1.turn = false;
                     player2.turn = true;
                     console.log(gameBoard);
+                    console.log(turns);
                     console.log(`player2.turn` + ` = ` + player2.turn);
                     let myMediaQuery = window.matchMedia('(max-width: 768px)');
                     if (myMediaQuery.matches) {
                         block.style.fontSize = '100px';
                     }
-               } else if (player2.turn == true && gameBoardPlayer.winner == null && event.target.textContent == '' && player2.ai == false) {
+               } else if (player2.turn == true && gameBoardPlayer.winner == null && event.target.textContent == '') {
                     const index = Number(event.target.id.substring(event.target.id.length-1));
                     gameBoard[index] = player2.symbol;
                     block.textContent = player2.symbol;
@@ -119,6 +120,7 @@ const gameBoardPlayer = (()=> {
                     player1.turn = true;
                     player2.turn = false;
                     console.log(gameBoard);
+                    console.log(turns);
                     console.log(`player1.turn` + ` = ` + player1.turn);
                     let myMediaQuery = window.matchMedia('(max-width: 768px)');
                     if (myMediaQuery.matches) {
@@ -154,6 +156,8 @@ const gameBoardPlayer = (()=> {
 
     // Check for a Winner
     const winnerCheck = () => {
+        // Increment turns
+        turns++;
         // Create arrays for both player that will be compared to winnerCombos
         let player1Results = [];
         let player2Results = [];
@@ -174,29 +178,39 @@ const gameBoardPlayer = (()=> {
         // combo takes winnerCombos and makes a seperate array out of each subarray
         for(let [index, combo] of winnerCombos.entries()) {
             if (combo.every((num)=> player1Results.indexOf(num) > -1)) {
-                winner = '1';
+                winner = 'Player 1';
                 winnerArray = combo;
                 console.log(combo);
             } else if (combo.every(num => player2Results.indexOf(num) > -1)) {
-                winner = '2';
+                winner = 'Player 2';
                 winnerArray = combo;
                 console.log(combo);
-            } else if (winner == null && winner == undefined && turns == 9) {
-                winner = 'tie';
+            } else if (winner == null && turns == 9) {
+                winner = 'Tie!';
                 winnerArray = combo;
                 console.log(combo);
             };
         };
+        // Winner Modal
+        let winnerModal = document.querySelector("#winner-modal");
+        const showWinner = (message)=> {
+            let winnerMessage = document.createTextNode(message);
+            winnerModal.classList.remove("invisible");
+            winnerModal.appendChild(winnerMessage);
+            // Vanish
+            setTimeout(()=> winnerModal.classList.add("invisible"), 5000);
+            setTimeout(()=> winnerModal.removeChild(winnerMessage), 5000);
+        }
         // Display the Winner
-        if(winner === '1') {
+        if(winner === 'Player 1') {
             console.log(winner);
-            alert('Player1 Wins!');
-        } else if (winner === '2') {
+            showWinner('Player 1 Wins!');
+        } else if (winner === 'Player 2') {
             console.log(winner);
-            alert('Player2 Wins!');
-        } else if (winner == 'tie') {
+            showWinner('Player 2 Wins!');
+        } else if (winner == 'Tie!') {
             console.log(winner);
-            alert('Tie!');
+            showWinner('Tie!');
         } else {
             return winnerArray;
         }
