@@ -131,28 +131,28 @@ const gameBoardPlayer = (()=> {
             });
             // Computer Algorithum
             computerMove =()=> {
-            
-                minMax = (min, max)=> {
-                    return Math.floor(Math.random() * (max -min)) + min;
+                ranNum = (min, max) => {
+                    return Math.floor(Math.random() * (max - min) ) + min;
                 };
-            
-                let comIndex = minMax(0, 9);
-
-                if(player2.ai == true && player2.turn == true) {
-                    gameBoard[comIndex] = player2.symbol;
-                    block.textContent = player2.symbol;
-                    block.style.color = '#2de2e6';
-                    block.style.fontSize = '150px';
-                    player1.turn = true;
-                    player2.turn = false;
+                 
+                let ranIndex = ranNum(0, 9);
+        
+                let comBlock = block;
+                if(comBlock.textContent === "") {  
+                comBlock.textContent = player2.symbol;
+                comBlock.style.color = '#2de2e6';
+                gameBoard[ranIndex] = player2.symbol;
+                player1.turn = true;
+                player2.turn = false;
                 } else {
-                    return computerMove();
+                    computerMove();
                 };
-                console.log(block, comIndex);
+                console.log(comBlock, ranIndex)
             };
         });
         return {block};
     })();
+
     // Check for a Winner
     const winnerCheck = () => {
         // Create arrays for both player that will be compared to winnerCombos
