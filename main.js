@@ -55,17 +55,33 @@ const gameStart = (()=> {
             };
         });
     };
-    // Computer versus Player Start
-    //const startGameComputer = ()=> {
-    //    let computerBtn = document.querySelector("#computerBtn");
-    //    computerBtn.addEventListener("click", ()=> {
-    //        modal.classList.add("invisible");
-    //        puzzleGrid.classList.remove("invisible");
-    //    });  
-    //};
-    return {displayButtons, startGamePlayer};
+
+    return {displayButtons, startGamePlayer, showAlert};
 })(); 
-const startYourEngines = [gameStart.displayButtons(), gameStart.startGamePlayer()];
+
+// Handles Events 
+const eventHandler = (()=> {
+    let puzzleGrid = document.querySelector(".main-container");
+    let modal = document.querySelector(".modal");
+    let blocks = document.querySelectorAll('.block');
+    let resetBtn = document.querySelector("#reset");
+    console.log(blocks);
+    gameStart.displayButtons();
+    gameStart.startGamePlayer();
+
+    // Game Restart
+    gameRestart = ()=> {
+        console.log('reset');
+        gameBoardPlayer.resetGameBoard();
+        modal.classList.remove("invisible");
+        puzzleGrid.classList.add("invisible");
+        blocks.forEach( (blocks) => {
+            blocks.textContent = "";
+        });
+    };
+    resetBtn.addEventListener('click', gameRestart);
+})();
+
 // Start Two Player Mode
 const gameBoardPlayer = (()=> { 
     const playerCheck = (name, symbol, turn) => {
@@ -95,8 +111,8 @@ const gameBoardPlayer = (()=> {
         const block = document.querySelectorAll('.block');
         block.forEach( block => {
             block.addEventListener('click', event => {
-               //Player One Turn
-               if (player1.turn == true && gameBoardPlayer.winner == null && event.target.textContent == '') {
+                //Player One Turn
+                if (player1.turn == true && gameBoardPlayer.winner == null && event.target.textContent == '') {
                     const index = Number(event.target.id.substring(event.target.id.length-1));
                     gameBoard[index] = player1.symbol;
                     block.textContent = player1.symbol;
@@ -111,7 +127,8 @@ const gameBoardPlayer = (()=> {
                     if (myMediaQuery.matches) {
                         block.style.fontSize = '100px';
                     }
-               } else if (player2.turn == true && gameBoardPlayer.winner == null && event.target.textContent == '') {
+                //Player Two Turn
+                } else if (player2.turn == true && gameBoardPlayer.winner == null && event.target.textContent == '') {
                     const index = Number(event.target.id.substring(event.target.id.length-1));
                     gameBoard[index] = player2.symbol;
                     block.textContent = player2.symbol;
@@ -126,30 +143,12 @@ const gameBoardPlayer = (()=> {
                     if (myMediaQuery.matches) {
                         block.style.fontSize = '100px';
                     }
-               } else if (player2.ai == true && player2.turn == true){
-                   //computerMove();
-               };
-               winnerCheck();
+                } else {
+                    return;
+                };
+                winnerCheck();
             });
-            // Computer Algorithum
-            //computerMove =()=> {
-            //    ranNum = (min, max) => {
-            //        return Math.floor(Math.random() * (max - min) ) + min;
-            //    };
-            //     
-            //    let ranIndex = ranNum(0, 9);
-            //    let comBlock = block;
-            //    if(comBlock.textContent === "") {  
-            //    comBlock.textContent = player2.symbol;
-            //    comBlock.style.color = '#2de2e6';
-            //    gameBoard[ranIndex] = player2.symbol;
-            //    player1.turn = true;
-            //    player2.turn = false;
-            //    } else {
-            //        computerMove();
-            //    };
-            //    console.log(comBlock, ranIndex)
-            //};
+
         });
         return {block};
     })();
@@ -227,30 +226,4 @@ const gameBoardPlayer = (()=> {
     };
     console.log(gameBoard, winner, player1.turn, player2.turn, turns);   
     return {playerTurns, player2, winnerCheck, resetGameBoard};
-})();
-// Handles Events unrelated to starting the game
-const eventHandler = (()=> {
-    let puzzleGrid = document.querySelector(".main-container");
-    let modal = document.querySelector(".modal");
-    let blocks = document.querySelectorAll('.block');
-    let resetBtn = document.querySelector("#reset");
-    console.log(blocks);
-    // Activate Computer
-    //gamePlayComputer = ()=> {
-    //    gameBoardPlayer.player2.ai = true;
-    //    console.log(`Computer Activated = ${gameBoardPlayer.player2.ai}`);
-    //}
-    //let computerBtn = document.querySelector("#computerBtn");
-    //computerBtn.addEventListener('click', gamePlayComputer);
-    // Game Restart
-    gameRestart = ()=> {
-        console.log('reset');
-        gameBoardPlayer.resetGameBoard();
-        modal.classList.remove("invisible");
-        puzzleGrid.classList.add("invisible");
-        blocks.forEach( (blocks) => {
-            blocks.textContent = "";
-        });
-    };
-    resetBtn.addEventListener('click', gameRestart);
 })();
