@@ -215,7 +215,7 @@ const gameBoardPlayer = (()=> {
         }
     };
     // Reset The Game
-    resetGameBoard = ()=> {
+    let resetGameBoard = ()=> {
         winner = null;
         winnerArray = [];
         player1.turn = true;
